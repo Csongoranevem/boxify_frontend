@@ -1,0 +1,28 @@
+<div class="card xs:col-12 md:col-6 lg:col-4 mx-auto px-3 text-center">
+
+  <h1>Login</h1>
+
+  <h3>Please sing in with your account</h3>
+
+  <div class="mb-4">
+    <p-floatLabel>
+      <input pInputText id="email" [(ngModel)]="user.email" class="w-full" />
+      <label for="email">E-mail address</label>
+    </p-floatLabel>
+  </div>
+
+  <div class="mb-4">
+    <p-floatLabel>
+      <p-password [(ngModel)]="user.password" [feedback]="false" class="w-full" [toggleMask]="true" />
+      <label for="password">Password</label>
+    </p-floatLabel>
+  </div>
+
+  <div class="mb-4">
+    <p-checkbox [(ngModel)] = "keepLoggedIn" [binary]="true"  />
+    <label for="ny"> Keep me logged in</label>
+  </div>
+
+  <p-button label="Login" icon="pi pi-sign-in" (click) = "login()" />
+
+</div>

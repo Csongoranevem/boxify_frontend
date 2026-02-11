@@ -1,0 +1,37 @@
+<div class="card xs:col-12 md:col-6 lg:col-4 mx-auto px-3 text-center">
+
+  <h1>Registration</h1>
+
+  <h3>Please register a new user</h3>
+
+  <div class="mb-4">
+    <p-floatLabel>
+      <input pInputText id="name" [(ngModel)]="user.name" class="w-full" />
+      <label for="name">Username</label>
+    </p-floatLabel>
+  </div>
+
+  <div class="mb-4">
+    <p-floatLabel>
+      <input pInputText id="email" [(ngModel)]="user.email" class="w-full" />
+      <label for="email">E-mail address</label>
+    </p-floatLabel>
+  </div>
+
+  <div class="mb-4">
+    <p-floatLabel>
+      <p-password [(ngModel)]="user.password" [feedback]="false" class="w-full" [toggleMask]="true" />
+      <label for="password">Password</label>
+    </p-floatLabel>
+  </div>
+
+  <div class="mb-4">
+    <p-floatLabel>
+      <p-password [(ngModel)]="user.confirm" [feedback]="false" class="w-full" [toggleMask]="true" />
+      <label for="confirm">Confirm password</label>
+    </p-floatLabel>
+  </div>
+
+  <p-button label="Registration" icon="pi pi-save" (click) = "save()" />
+
+</div>
