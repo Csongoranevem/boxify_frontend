@@ -1,1 +1,6 @@
-<p-menubar [model]="items" />
+<p-menubar [model]="items" >
+    <ng-template pTemplate="start">
+        <img src="logo.ico" alt="Logo" class="logo" />
+    </ng-template>
+    <p-button label="Új doboz" icon="pi pi-plus" (click)="createNewBox()"></p-button>
+</p-menubar>

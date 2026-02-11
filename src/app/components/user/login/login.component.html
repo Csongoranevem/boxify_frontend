@@ -2,18 +2,18 @@
 
   <h1>Login</h1>
 
-  <h3>Please sing in with your account</h3>
+  <h3>Please sign in with your account</h3>
 
-  <div class="mb-4">
+  <div class="mb-4 col col-xl-4 col-lg-4 col-md-6 col-sm-12">
     <p-floatLabel>
       <input pInputText id="email" [(ngModel)]="user.email" class="w-full" />
       <label for="email">E-mail address</label>
     </p-floatLabel>
   </div>
 
-  <div class="mb-4">
+  <div class="mb-4 col col-xl-4 col-lg-4 col-md-6 col-sm-12">
     <p-floatLabel>
-      <p-password [(ngModel)]="user.password" [feedback]="false" class="w-full" [toggleMask]="true" />
+      <p-password [(ngModel)]="user.password" id="password" [feedback]="false" class="w-full" [toggleMask]="true" />
       <label for="password">Password</label>
     </p-floatLabel>
   </div>

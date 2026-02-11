@@ -4,11 +4,12 @@ import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { ApiService } from '../../../services/api.service';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [MenubarModule],
+  imports: [MenubarModule, ButtonModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
@@ -31,6 +32,7 @@ export class NavbarComponent implements OnInit {
       setTimeout(() => {
         this.setupMenu();
       }, 50);
+      console.log('NavbarComponent: isLoggedIn changed to', isLoggedIn);
     });
 
     if (this.isLoggedIn) {
@@ -55,42 +57,47 @@ export class NavbarComponent implements OnInit {
 
       ...(this.isLoggedIn) ? [
         {
-          label: 'Users',
-          icon: 'pi pi-users',
-          routerLink: '/users'
+          label: 'Dobozaim',
+          icon: 'pi pi-box',
+          routerLink: '/myboxes'
         },
         {
-          label: 'Worktimes',
-          icon: 'pi pi-clock',
-          routerLink: '/worktimes'
-        },
-        {
-          label: 'Statistics',
+          label: 'Statisztikák',
           icon: 'pi pi-chart-pie',
           routerLink: '/statistics'
         },
         {
-          label: 'Calendar',
+          label: 'Naptár',
           icon: 'pi pi-calendar',
           routerLink: '/calendar'
         },
         {
-          label: 'Logout',
+          label: 'Kijelentkezés',
           icon: 'pi pi-sign-out',
           routerLink: '/logout'
         },
       ] : [
         {
-          label: 'Login',
+          label: 'Bejelentkezés',
           icon: 'pi pi-sign-in',
           routerLink: '/login'
         },
         {
-          label: 'Registration',
+          label: 'Regisztráció',
           icon: 'pi pi-user-plus',
           routerLink: '/registration'
         }
       ]
     ]
+  }
+
+  createNewBox() {
+    if (this.isLoggedIn) {
+      this.router.navigateByUrl('create_new_box');
+    }
+    else {
+      this.router.navigateByUrl('login');
+      alert('Kérjük, jelentkezzen be a doboz létrehozásához.');
+    }
   }
 }
