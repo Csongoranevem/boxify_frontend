@@ -6,6 +6,9 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { MessageModule } from 'primeng/message';
+import { MessageService } from 'primeng/api';
+import { ApiService } from '../../../services/api.service';
+import { Box } from '../../../interfaces/box';
 @Component({
   selector: 'app-new-box',
   standalone: true,
@@ -15,45 +18,47 @@ import { MessageModule } from 'primeng/message';
 })
 export class NewBoxComponent {
 
-  boxName: string = '';
-  boxSize = {
-    width: 0,
-    length: 0,
-    height: 0
+  constructor(
+    private api: ApiService,
+    private messageService: MessageService
+  ) { }
+
+  newBox: Box = {
+    id: '',
+    userId: '',
+    code: '',
+    labelType: 'QR',
+    lengthCm: 0,
+    widthCm: 0,
+    heightCm: 0,
+    maxWeightKg: 0,
+    location: '',
+    note: '',
+    status: 'ACTIVE',
+    createdAt: new Date(),
+    updatedAt: new Date()
   };
-  boxfullSize: number = 0;
-  errorMessage: string = '';
-  dialogVisible: boolean = false;
+
 
   createBox() {
-    this.boxfullSize = this.boxSize.height * this.boxSize.length * this.boxSize.width;
-    const newBox = {
-      name: this.boxName,
-      size: this.boxfullSize
-    };
+
+    let fullSize = this.newBox.lengthCm * this.newBox.widthCm * this.newBox.heightCm;
 
     try {
-      if (!this.boxName || this.boxfullSize == 0) {
-        throw new Error('Hiányzó doboz adatok');
+      if (!this.newBox.code || fullSize == 0) {
+        throw new Error('Kérem, adjon meg minden szükséges adatot');
       }
-      if (this.boxfullSize > 1000000) {
+      if (fullSize > 10000000) {
         throw new Error('A doboz mérete túl nagy');
       }
-      if (this.boxSize.height < 0 || this.boxSize.length < 0 || this.boxSize.width < 0) {
+      if (this.newBox.heightCm < 0 || this.newBox.lengthCm < 0 || this.newBox.widthCm < 0) {
         throw new Error('Nem adhatsz meg negatív méretet');
       }
       //itt lesz a post
-      console.log('Creating box:', newBox);
-      this.errorMessage = '';
-      this.dialogVisible = false;
+      console.log('Creating box:', this.newBox);
     }
-    catch (error) {
-      console.error('Error creating box:', error);
-      this.errorMessage = error instanceof Error ? error.message : 'Ismeretlen hiba történt a doboz létrehozása során';
-      this.dialogVisible = true;
-      setTimeout(() => {
-        this.dialogVisible = false;
-      }, 2000);
+    catch (error: any) {
+      this.messageService.add({ severity: 'error', summary: 'Hiba', detail: error.message });
     }
   }
 }

@@ -1,35 +1,46 @@
+<!--
+
+-->
+
 <div id="newBoxContainer">
     <div class="formContainer">
         <h1>Új doboz létrehozása</h1>
-        <div class="mb-4 col col-xl-4 col-lg-4 col-md-6 col-sm-12 boxName">
-            <p-floatLabel>
-                <input pInputText id="boxName" [(ngModel)]="boxName" class="w-full" />
-                <label for="boxName">Box Name</label>
-            </p-floatLabel>
-        </div>
+
+        <h4>{{newBox.code}}</h4>
 
         <div class="mb-4 col col-xl-4 col-lg-4 col-md-6 col-sm-12">
             <p-floatLabel class="mb-4 boxSize">
-                <input pInputText id="szelesseg" [(ngModel)]="boxSize.width" class="w-full" />
+                <input pInputText id="szelesseg" [(ngModel)]="newBox.widthCm" class="w-full" />
                 <label for="szelesseg">Szélesség (cm)</label>
             </p-floatLabel>
 
             <p-floatLabel class="mb-4 boxSize">
-                <input pInputText id="magassag" [(ngModel)]="boxSize.length" class="w-full" />
+                <input pInputText id="magassag" [(ngModel)]="newBox.lengthCm" class="w-full" />
                 <label for="magassag">Hossz (cm)</label>
             </p-floatLabel>
 
             <p-floatLabel class="mb-4 boxSize">
-                <input pInputText id="melyseg" [(ngModel)]="boxSize.height" class="w-full" />
+                <input pInputText id="melyseg" [(ngModel)]="newBox.heightCm" class="w-full" />
                 <label for="melyseg">Magasság (cm)</label>
             </p-floatLabel>
+
+            <p-floatLabel class="mb-4 boxSize">
+                <input pInputText id="suly" [(ngModel)]="newBox.maxWeightKg" class="w-full" />
+                <label for="suly">Max. súly (kg)</label>
+            </p-floatLabel>
         </div>
+
+        <div class="mb-4 col col-xl-4 col-lg-4 col-md-6 col-sm-12 boxName">
+            <p-floatLabel>
+                <input pInputText id="boxNote" [(ngModel)]="newBox.note" class="w-full" />
+                <label for="boxNote">Leírás <span style="font-weight: 100;">(opcionális)</span> </label>
+            </p-floatLabel>
+        </div>
+
+
 
         <p-button label="Létrehozás" icon="pi pi-plus" (click)="createBox()" class="createBtn"></p-button>
     </div>
     <img src="logo.ico" alt="Boxify logo">
 
 </div>
-
-
-<p-message *ngIf="errorMessage" severity="error" class="p-absolute top-0 left-0">{{errorMessage}}</p-message>

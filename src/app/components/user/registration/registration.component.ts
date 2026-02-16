@@ -7,6 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { Router } from '@angular/router';
 import { User } from '../../../interfaces/user';
 import { ApiService } from '../../../services/api.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-registration',
@@ -32,7 +33,9 @@ export class RegistrationComponent implements OnInit {
 
   constructor(
     private api: ApiService,
-    private router: Router
+    private router: Router,
+    private message: MessageService
+
   ){}
 
   ngOnInit(): void {
@@ -52,12 +55,12 @@ export class RegistrationComponent implements OnInit {
 
     this.api.registration('users', data).subscribe({
       next: (_res)=>{
-        alert('Sikeres regisztráció! Bejelentkezhetsz!');
+        this.message.add({ severity: 'success', summary: 'Siker', detail: 'Sikeres regisztráció! Bejelentkezhetsz!', life: 3000 });
         this.router.navigateByUrl('/login');
       },
       error: (err)=>{
         console.log(err);
-        alert(err.error.error);
+        this.message.add({ severity: 'error', summary: 'Hiba', detail: `Sikertelen regisztráció: \n${err.error.error}`, life: 3000 });
       }
     });
   }

@@ -10,9 +10,15 @@
     </ng-template>
     <ng-template pTemplate="body" let-box>
         <tr>
+
             <td>{{ box.id }}</td>
-            <td>{{ box.name }}</td>
-            <td>{{ box.updatedAt }}</td>
+            <td>{{ box.code }}</td>
+            <td>{{ box.labelType }}</td>
+            <td>{{ box.lengthCm }} x {{ box.widthCm }} x {{ box.heightCm }} cm</td>
+            <td>{{ box.maxWeightKg }} kg</td>
+            <td>{{ box.location }}</td>
+            <td>{{ box.updatedAt | date }}</td>
+
             <td>
                 <p-button label="Szerkesztés" icon="pi pi-pencil" class="changeBtn w-50" severity="info"></p-button>
                 <p-button label="Törlés" icon="pi pi-trash" class="deleteBtn w-50" severity="danger"></p-button>

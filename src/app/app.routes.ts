@@ -3,6 +3,7 @@ import { LoginComponent } from './components/user/login/login.component';
 import { RegistrationComponent } from './components/user/registration/registration.component';
 import { NewBoxComponent } from './components/user/new-box/new-box.component';
 import { MyBoxesComponent } from './components/user/my-boxes/my-boxes.component';
+import { LogoutComponent } from './components/user/logout/logout.component';
 
 export const routes: Routes = [
 
@@ -12,6 +13,7 @@ export const routes: Routes = [
 
     { path: 'myboxes', component: MyBoxesComponent },
     { path: 'create_new_box', component: NewBoxComponent },
+    { path: 'logout', component: LogoutComponent},
 
 
     { path: '**', redirectTo: '/login' }

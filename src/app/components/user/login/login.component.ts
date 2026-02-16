@@ -10,19 +10,21 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { User } from '../../../interfaces/user';
 import { ApiService } from '../../../services/api.service';
 import { AuthService } from '../../../services/auth.service';
-
+import { MessageService } from 'primeng/api';
+import { Toast } from 'primeng/toast';
+import { Ripple } from 'primeng/ripple';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [InputTextModule, FloatLabelModule, FormsModule, PasswordModule, ButtonModule, CheckboxModule],
+  imports: [InputTextModule, FloatLabelModule, FormsModule, PasswordModule, ButtonModule, CheckboxModule, Toast, Ripple],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
 
-  keepLoggedIn: boolean =false;
+  keepLoggedIn: boolean = false;
 
-  user:User = {
+  user: User = {
     id: '',
     name: '',
     email: '',
@@ -37,10 +39,11 @@ export class LoginComponent {
   constructor(
     private api: ApiService,
     private auth: AuthService,
-    private router: Router
-  ){}
+    private router: Router,
+    private message: MessageService
+  ) { }
 
-  login(){
+  login() {
 
     let data = {
       email: this.user.email,
@@ -48,17 +51,16 @@ export class LoginComponent {
     }
 
     this.api.login('users', data).subscribe({
-      next: (res)=>{
+      next: (res) => {
         this.auth.login((res as any).token);
         if (this.keepLoggedIn) {
           this.auth.storeUser((res as any).token);
         }
-        alert('Sikeres belépés!');
+        this.message.add({ severity: 'success', summary: 'Siker', detail: 'Sikeres bejelentkezés', life: 3000 });
         this.router.navigateByUrl('/home');
       },
-      error: (err)=>{
-        console.log(err);
-        alert(err.error.error);
+      error: (err) => {
+        this.message.add({ severity: 'error', summary: 'Hiba', detail: `Sikertelen bejelentkezés: \n${err.error.error}`, life: 3000 });
       }
     });
   }

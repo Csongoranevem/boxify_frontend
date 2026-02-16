@@ -1,28 +1,28 @@
 <div class="card xs:col-12 md:col-6 lg:col-4 mx-auto px-3 text-center">
 
-  <h1>Login</h1>
+  <h1>Bejelentkezés</h1>
 
-  <h3>Please sign in with your account</h3>
+  <h3>Kérlek jelentkezz be</h3>
 
   <div class="mb-4 col col-xl-4 col-lg-4 col-md-6 col-sm-12">
     <p-floatLabel>
       <input pInputText id="email" [(ngModel)]="user.email" class="w-full" />
-      <label for="email">E-mail address</label>
+      <label for="email">E-mail cím</label>
     </p-floatLabel>
   </div>
 
   <div class="mb-4 col col-xl-4 col-lg-4 col-md-6 col-sm-12">
     <p-floatLabel>
       <p-password [(ngModel)]="user.password" id="password" [feedback]="false" class="w-full" [toggleMask]="true" />
-      <label for="password">Password</label>
+      <label for="password">Jelszó</label>
     </p-floatLabel>
   </div>
 
   <div class="mb-4">
     <p-checkbox [(ngModel)] = "keepLoggedIn" [binary]="true"  />
-    <label for="ny"> Keep me logged in</label>
+    <label for="ny">Emlékezz rám</label>
   </div>
 
-  <p-button label="Login" icon="pi pi-sign-in" (click) = "login()" />
+  <p-button label="Bejelentkezés" icon="pi pi-sign-in" (click) = "login()" />
 
 </div>

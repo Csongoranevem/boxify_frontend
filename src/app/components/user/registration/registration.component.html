@@ -1,37 +1,35 @@
 <div class="card xs:col-12 md:col-6 lg:col-4 mx-auto px-3 text-center">
 
-  <h1>Registration</h1>
-
-  <h3>Please register a new user</h3>
+  <h1>Regisztrálj</h1>
 
   <div class="mb-4 col col-xl-4 col-lg-4 col-md-6 col-sm-12">
     <p-floatLabel>
       <input pInputText id="name" [(ngModel)]="user.name" class="w-full" />
-      <label for="name">Username</label>
+      <label for="name">Felhasználónév</label>
     </p-floatLabel>
   </div>
 
   <div class="mb-4 col col-xl-4 col-lg-4 col-md-6 col-sm-12">
     <p-floatLabel>
       <input pInputText id="email" [(ngModel)]="user.email" class="w-full" />
-      <label for="email">E-mail address</label>
+      <label for="email">E-mail cím</label>
     </p-floatLabel>
   </div>
 
   <div class="mb-4 col col-xl-4 col-lg-4 col-md-6 col-sm-12">
     <p-floatLabel>
       <p-password [(ngModel)]="user.password" [feedback]="false" class="w-full" [toggleMask]="true" />
-      <label for="password">Password</label>
+      <label for="password">Jelszó</label>
     </p-floatLabel>
   </div>
 
   <div class="mb-4 col col-xl-4 col-lg-4 col-md-6 col-sm-12">
     <p-floatLabel>
       <p-password [(ngModel)]="user.confirm" [feedback]="false" class="w-full" [toggleMask]="true" />
-      <label for="confirm">Confirm password</label>
+      <label for="confirm">Jelszó újra</label>
     </p-floatLabel>
   </div>
 
-  <p-button label="Registration" icon="pi pi-save" (click) = "save()" />
+  <p-button label="Regisztráció" icon="pi pi-save" (click) = "save()" />
 
 </div>
