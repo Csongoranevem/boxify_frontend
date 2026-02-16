@@ -43,7 +43,7 @@ export class AuthService {
   LoggedUser(){
     const token = sessionStorage.getItem(this.tokenName);
     if (token){
-      return token;  //TODO: itt még matatni kell
+      return token;
     }
     return null;
   }

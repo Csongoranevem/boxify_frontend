@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
-import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { ButtonModule } from 'primeng/button';
@@ -9,19 +8,28 @@ import { MessageModule } from 'primeng/message';
 import { MessageService } from 'primeng/api';
 import { ApiService } from '../../../services/api.service';
 import { Box } from '../../../interfaces/box';
+import { TextareaModule } from 'primeng/textarea';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { Router } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 @Component({
   selector: 'app-new-box',
   standalone: true,
-  imports: [InputTextModule, InputNumberModule, FormsModule, FloatLabelModule, ButtonModule, CommonModule, MessageModule],
+  imports: [InputTextModule, InputNumberModule, FormsModule, FloatLabelModule, ButtonModule, CommonModule, MessageModule, TextareaModule],
   templateUrl: './new-box.component.html',
   styleUrl: './new-box.component.scss'
+
 })
 export class NewBoxComponent {
 
   constructor(
     private api: ApiService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router,
+    private auth: AuthService
   ) { }
+
+  userId: string = '';
 
   newBox: Box = {
     id: '',
@@ -54,8 +62,31 @@ export class NewBoxComponent {
       if (this.newBox.heightCm < 0 || this.newBox.lengthCm < 0 || this.newBox.widthCm < 0) {
         throw new Error('Nem adhatsz meg negatív méretet');
       }
-      //itt lesz a post
-      console.log('Creating box:', this.newBox);
+
+      this.api.insert('boxes', this.newBox).subscribe({
+        next: (response) => {
+          this.messageService.add({ severity: 'success', summary: 'Siker', detail: 'A doboz sikeresen létrejött' });
+        },
+        error: (error) => {
+          this.messageService.add({ severity: 'error', summary: 'Hiba', detail: error.message });
+        }
+      });
+
+      this.newBox = {
+        id: '',
+        userId: '',
+        code: '',
+        labelType: 'QR',
+        lengthCm: 0,
+        widthCm: 0,
+        heightCm: 0,
+        maxWeightKg: 0,
+        location: 'Ismeretlen',
+        note: '',
+        status: 'ACTIVE',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      };
     }
     catch (error: any) {
       this.messageService.add({ severity: 'error', summary: 'Hiba', detail: error.message });

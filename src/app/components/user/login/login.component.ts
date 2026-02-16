@@ -43,7 +43,18 @@ export class LoginComponent {
     private message: MessageService
   ) { }
 
+
+  getUserId() {
+    this.api.readByField('users', 'email', "eq", this.user.email).subscribe({
+      next: (user) => {
+        localStorage.setItem('user', JSON.stringify(user));
+        console.log('User data stored in localStorage:', user);
+      }
+    });
+  }
+
   login() {
+
 
     let data = {
       email: this.user.email,
@@ -56,6 +67,7 @@ export class LoginComponent {
         if (this.keepLoggedIn) {
           this.auth.storeUser((res as any).token);
         }
+
         this.message.add({ severity: 'success', summary: 'Siker', detail: 'Sikeres bejelentkezés', life: 3000 });
         this.router.navigateByUrl('/home');
       },
@@ -63,6 +75,10 @@ export class LoginComponent {
         this.message.add({ severity: 'error', summary: 'Hiba', detail: `Sikertelen bejelentkezés: \n${err.error.error}`, life: 3000 });
       }
     });
+
+    this.getUserId();
   }
+
+
 
 }

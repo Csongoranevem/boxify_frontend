@@ -3,8 +3,12 @@
     <ng-template pTemplate="header">
         <tr>
             <th>ID</th>
-            <th>Név</th>
-            <th>Frissítve</th>
+            <th>Kód</th>
+            <th>Típus</th>
+            <th>Méret</th>
+            <th>Max. súly</th>
+            <th>Helyszín</th>
+            <th>Utolsó frissítés</th>
             <th>Műveletek</th>
         </tr>
     </ng-template>
@@ -12,7 +16,9 @@
         <tr>
 
             <td>{{ box.id }}</td>
-            <td>{{ box.code }}</td>
+            <td>
+                <qrcode [qrdata]="box.code" [width]="256" [errorCorrectionLevel]="'M'" class="QR" [width]="2" [colorDark]="'#000000'"></qrcode>
+            </td>
             <td>{{ box.labelType }}</td>
             <td>{{ box.lengthCm }} x {{ box.widthCm }} x {{ box.heightCm }} cm</td>
             <td>{{ box.maxWeightKg }} kg</td>
@@ -20,9 +26,45 @@
             <td>{{ box.updatedAt | date }}</td>
 
             <td>
-                <p-button label="Szerkesztés" icon="pi pi-pencil" class="changeBtn w-50" severity="info"></p-button>
-                <p-button label="Törlés" icon="pi pi-trash" class="deleteBtn w-50" severity="danger"></p-button>
+                <p-button label="Szerkesztés" icon="pi pi-pencil" class="changeBtn w-50" severity="info" (click)="showDialog(box.id)"></p-button>
+                <p-button label="Törlés" icon="pi pi-trash" class="deleteBtn w-50" severity="danger" (click)="deleteBox(box.id)"></p-button>
             </td>
         </tr>
     </ng-template>
 </p-table>
+
+
+
+
+<p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+    <span class="p-text-secondary block mb-8">Doboz módosítása</span>
+    <div class="flex items-center gap-4 mb-4">
+        <label for="labelType" class="font-semibold w-24">Típus</label>
+        <input pInputText id="labelType" class="flex-auto" [(ngModel)]="selectedBox.labelType" />
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+        <label for="lengthCm" class="font-semibold w-24">Hosszúság (cm)</label>
+        <input pInputText id="lengthCm" class="flex-auto" [(ngModel)]="selectedBox.lengthCm" />
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+        <label for="widthCm" class="font-semibold w-24">Szélesség (cm)</label>
+        <input pInputText id="widthCm" class="flex-auto" [(ngModel)]="selectedBox.widthCm" />
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+        <label for="heightCm" class="font-semibold w-24">Magasság (cm)</label>
+        <input pInputText id="heightCm" class="flex-auto" [(ngModel)]="selectedBox.heightCm" />
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+        <label for="maxWeightKg" class="font-semibold w-24">Max. súly (kg)</label>
+        <input pInputText id="maxWeightKg" class="flex-auto" [(ngModel)]="selectedBox.maxWeightKg" />
+    </div>
+    <div>
+        <label for="location" class="font-semibold w-24">Leírás</label>
+        <input pInputText id="location" class="flex-auto" [(ngModel)]="selectedBox.note" />
+    </div>
+
+    <div class="flex justify-end gap-2">
+        <p-button label="Mégse" severity="secondary" (click)="hideDialog()" />
+        <p-button label="Mentés" (click)="updateBox(selectedBox.id)" />
+    </div>
+</p-dialog>

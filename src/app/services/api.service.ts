@@ -42,15 +42,15 @@ export class ApiService {
  // restorepass(){}
 
   readById(table: string, id: string){
-    return this.http.get(`${this.server}/public/${table}/${id}`);
+    return this.http.get(`${this.server}/${table}/${id}`);
   }
 
   readByField(table: string, field: string, op: string, value: string){
-    return this.http.get(`${this.server}/public/${table}/${field}/${op}/${value}`);
+    return this.http.get(`${this.server}/${table}/${field}/${op}/${value}`);
   }
 
   readAll(table: string){
-    return this.http.get(`${this.server}/public/${table}`);
+    return this.http.get(`${this.server}/${table}`);
   }
 
   sendMail(data: object){

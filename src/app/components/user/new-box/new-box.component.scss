@@ -1,27 +1,5 @@
-.boxSize {
-  width: 6rem;
-}
-
-.boxName {
-  width: 15rem;
-}
-
-
-#newBoxContainer {
-  max-width: 800px;
-  margin: 0 auto;
+.size{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-}
-
-#newBoxContainer img{
-    max-width: 100%;
-    object-fit: contain;
-}
-
-#formContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
 }
