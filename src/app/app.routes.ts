@@ -4,6 +4,7 @@ import { RegistrationComponent } from './components/user/registration/registrati
 import { NewBoxComponent } from './components/user/new-box/new-box.component';
 import { MyBoxesComponent } from './components/user/my-boxes/my-boxes.component';
 import { LogoutComponent } from './components/user/logout/logout.component';
+import { UpdateProfileComponent } from './components/user/update-profile/update-profile.component';
 
 export const routes: Routes = [
 
@@ -14,7 +15,7 @@ export const routes: Routes = [
     { path: 'myboxes', component: MyBoxesComponent },
     { path: 'create_new_box', component: NewBoxComponent },
     { path: 'logout', component: LogoutComponent},
-
+    {path:'updateprfile',component:UpdateProfileComponent},
 
     { path: '**', redirectTo: '/login' }
 ];
