@@ -3,4 +3,6 @@
         <img src="logo.ico" alt="Logo" class="logo" />
     </ng-template>
     <p-button label="Új doboz" icon="pi pi-plus" (click)="createNewBox()"></p-button>
+
 </p-menubar>
+<p-button  icon="pi pi-{{isDark ? 'sun' : 'moon'}}" outlined severity="contrast" [rounded]="true" size="large" class="theme" (click)="toggleDarkMode()"></p-button>

@@ -8,10 +8,12 @@ import { DatePipe } from '@angular/common';
 import { QRCodeModule } from 'angularx-qrcode';
 import { FormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
+import { InputText } from 'primeng/inputtext';
+import { TextareaModule } from 'primeng/textarea';
 @Component({
   selector: 'app-my-boxes',
   standalone: true,
-  imports: [TableModule, ButtonModule, DatePipe, QRCodeModule, FormsModule, DialogModule],
+  imports: [TableModule, ButtonModule, DatePipe, QRCodeModule, FormsModule, DialogModule, InputText, TextareaModule],
   templateUrl: './my-boxes.component.html',
   styleUrl: './my-boxes.component.scss'
 })

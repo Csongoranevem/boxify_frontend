@@ -24,6 +24,7 @@ export class NavbarComponent implements OnInit {
 
   items: MenuItem[] | undefined;
   isLoggedIn: boolean = false;
+  isDark = false;
 
   ngOnInit(): void {
 
@@ -99,5 +100,11 @@ export class NavbarComponent implements OnInit {
       this.router.navigateByUrl('login');
       alert('Kérjük, jelentkezzen be a doboz létrehozásához.');
     }
+  }
+
+  toggleDarkMode() {
+    const element = document.querySelector('html');
+    element!.classList.toggle('my-app-dark');
+    this.isDark = element!.classList.contains('my-app-dark');
   }
 }
