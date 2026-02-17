@@ -1,14 +1,50 @@
 <div class="card xs:col-12 md:col-6 lg:col-4 mx-auto px-3 text-center">
-    
-<h3>Profiladatok szerkesztése</h3>
 
-<p-inputgroup>
-    <input id="nameField" pInputText placeholder="Felhasználónév" [disabled]="isInputDisabled" />
-    <p-inputgroup-addon>
-        <p-button [icon]="icon" severity="secondary" variant="text" (click)="toggleInput()"/>
-    </p-inputgroup-addon>
-</p-inputgroup>
-<p-menu #menu  popup styleClass="!min-w-fit" />
+    <h3>Profiladatok szerkesztése</h3>
+
+    <p-inputgroup class="mb-3">
+        <input id="nameField" pInputText placeholder="Felhasználónév" [disabled]="isNameInputDisabled" name="name" />
+        <p-inputgroup-addon>
+            <p-button [icon]="Nameicon" severity="secondary" variant="text" (click)="toggleNameInput()"/>
+        </p-inputgroup-addon>
+    </p-inputgroup>
 
 
+    <p-inputgroup class="mb-3">
+        <input id="emailField" pInputText placeholder="Email" [disabled]="isEmailInputDisabled" name="email"/>
+        <p-inputgroup-addon>
+            <p-button [icon]="Emailicon" severity="secondary" variant="text" (click)="toggleEmailInput()" />
+        </p-inputgroup-addon>
+    </p-inputgroup>
+
+    <p-menu #menu popup styleClass="!min-w-fit" />
+
+
+    <p-button label="Mentés" icon="pi pi-check" severity="secondary" variant="text" (click)="saveChanges()"
+        [disabled]="isEmailInputDisabled || isNameInputDisabled" />
+
+
+    <!-- Password Change -->
+
+
+    <p-floatlabel class="mb-3 mt-3" variant="on">
+        <label for="OldpasswordField">Jelszó</label>
+        <input id="OldpasswordField" pInputText type="password" />
+    </p-floatlabel>
+    <p-floatlabel class="mb-3" variant="on">
+        <label for="NewpasswordField">Új jelszó</label>
+        <input id="NewpasswordField" pInputText  type="password" />
+    </p-floatlabel>
+    <p-floatlabel class="mb-3" variant="on">
+        <label for="ConfirmNewpasswordField">Új jelszó megerősítése</label>
+        <input id="ConfirmNewpasswordField" pInputText type="password" />
+    </p-floatlabel>
+
+    <p-button label="Mentés" icon="pi pi-check" severity="secondary" variant="text" (click)="saveChanges()"
+        [disabled]="!isPasswordValid()" />
+
+
+
+        <p class="LastLogin"></p>
+        <p class="RegistrationDate"></p>
 </div>

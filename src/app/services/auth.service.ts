@@ -60,4 +60,19 @@ export class AuthService {
     const user: any = this.LoggedUser();
     return user.role === 'admin';
   }
+
+
+
+  GetLoggedUser(){
+    const token = localStorage.getItem(this.tokenName);
+    if (token){
+      const payload = token.split('.')[1];
+      const decodedPayload = atob(payload);
+      const decodedUTF8Payload = new TextDecoder('utf-8').decode(
+        new Uint8Array(decodedPayload.split('').map(char => char.charCodeAt(0)))
+      );
+      return JSON.parse(decodedUTF8Payload);
+    }
+    return null;
+  }
 }
