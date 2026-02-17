@@ -19,7 +19,7 @@
             <td>{{ box.id }}</td>
             <td>
                 <qrcode [qrdata]="box.code" [width]="256" [errorCorrectionLevel]="'M'" class="QR" [width]="2"
-                    [colorDark]="'#000000'"></qrcode>
+                    [colorDark]="'#38bdf8'" [colorLight]="'#00000000'"></qrcode>
             </td>
             <td>{{ box.labelType }}</td>
             <td>{{ box.lengthCm }} x {{ box.widthCm }} x {{ box.heightCm }} cm</td>
