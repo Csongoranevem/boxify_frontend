@@ -1,5 +1,6 @@
 <h1>Az én dobozaim</h1>
-<p-table [value]="boxes" [paginator]="true" [rows]="10" [responsiveLayout]="'scroll'" class="col col-xl-4 col-lg-8 col-md-8 col-sm-12">
+<p-table [value]="boxes" [paginator]="true" [rows]="10" [responsiveLayout]="'scroll'"
+    class="col col-xl-4 col-lg-8 col-md-8 col-sm-12">
     <ng-template pTemplate="header">
         <tr>
             <th>ID</th>
@@ -17,7 +18,8 @@
 
             <td>{{ box.id }}</td>
             <td>
-                <qrcode [qrdata]="box.code" [width]="256" [errorCorrectionLevel]="'M'" class="QR" [width]="2" [colorDark]="'#000000'"></qrcode>
+                <qrcode [qrdata]="box.code" [width]="256" [errorCorrectionLevel]="'M'" class="QR" [width]="2"
+                    [colorDark]="'#000000'"></qrcode>
             </td>
             <td>{{ box.labelType }}</td>
             <td>{{ box.lengthCm }} x {{ box.widthCm }} x {{ box.heightCm }} cm</td>
@@ -26,8 +28,10 @@
             <td>{{ box.updatedAt | date }}</td>
 
             <td>
-                <p-button label="Szerkesztés" icon="pi pi-pencil" class="changeBtn w-50" severity="info" (click)="showDialog(box.id)"></p-button>
-                <p-button label="Törlés" icon="pi pi-trash" class="deleteBtn w-50" severity="danger" (click)="deleteBox(box.id)"></p-button>
+                <p-button label="Szerkesztés" icon="pi pi-pencil" class="changeBtn w-50" severity="info"
+                    (click)="showDialog(box.id)"></p-button>
+                <p-button label="Törlés" icon="pi pi-trash" class="deleteBtn w-50" severity="danger"
+                    (click)="deleteBox(box.id)"></p-button>
             </td>
         </tr>
     </ng-template>
@@ -58,9 +62,10 @@
         <label for="maxWeightKg" class="font-semibold w-24">Max. súly (kg)</label>
         <input pInputText id="maxWeightKg" class="flex-auto" [(ngModel)]="selectedBox.maxWeightKg" />
     </div>
-    <div>
+    <div class="mb-3">
         <label for="location" class="font-semibold w-24">Leírás</label>
-        <input pInputText id="location" class="flex-auto" [(ngModel)]="selectedBox.note" />
+        <textarea pTextarea id="location" class="flex-auto" [(ngModel)]="selectedBox.note" rows="5" style="resize: none"
+            class="h-full w-full"></textarea>
     </div>
 
     <div class="flex justify-end gap-2">

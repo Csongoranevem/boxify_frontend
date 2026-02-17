@@ -64,6 +64,8 @@ export class LoginComponent {
     this.api.login('users', data).subscribe({
       next: (res) => {
         this.auth.login((res as any).token);
+        sessionStorage.setItem("id", (res as any).userId);
+
         if (this.keepLoggedIn) {
           this.auth.storeUser((res as any).token);
         }

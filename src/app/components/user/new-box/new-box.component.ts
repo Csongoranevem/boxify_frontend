@@ -50,6 +50,7 @@ export class NewBoxComponent {
 
   createBox() {
 
+    this.newBox.userId = sessionStorage.getItem("id") || '';
     let fullSize = this.newBox.lengthCm * this.newBox.widthCm * this.newBox.heightCm;
 
     try {
