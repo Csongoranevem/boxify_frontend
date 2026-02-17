@@ -15,7 +15,7 @@ export const routes: Routes = [
     { path: 'myboxes', component: MyBoxesComponent },
     { path: 'create_new_box', component: NewBoxComponent },
     { path: 'logout', component: LogoutComponent},
-    {path:'updateprfile',component:UpdateProfileComponent},
+    {path:'updateprofile',component:UpdateProfileComponent},
 
     { path: '**', redirectTo: '/login' }
 ];

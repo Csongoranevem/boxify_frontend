@@ -1,1 +1,14 @@
-<p>update-profile works!</p>
+<div class="card xs:col-12 md:col-6 lg:col-4 mx-auto px-3 text-center">
+    
+<h3>Profiladatok szerkesztése</h3>
+
+<p-inputgroup>
+    <input id="nameField" pInputText placeholder="Felhasználónév" [disabled]="isInputDisabled" />
+    <p-inputgroup-addon>
+        <p-button [icon]="icon" severity="secondary" variant="text" (click)="toggleInput()"/>
+    </p-inputgroup-addon>
+</p-inputgroup>
+<p-menu #menu  popup styleClass="!min-w-fit" />
+
+
+</div>

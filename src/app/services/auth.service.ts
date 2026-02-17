@@ -37,7 +37,6 @@ export class AuthService {
   logout(){
     sessionStorage.removeItem(this.tokenName);
     localStorage.removeItem(this.tokenName);
-    sessionStorage.removeItem("id");
     this.isLoggedIn.next(false);
   }
 
