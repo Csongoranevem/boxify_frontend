@@ -3,7 +3,7 @@
     <h3>Profiladatok szerkesztése</h3>
 
     <p-inputgroup class="mb-3">
-        <input id="nameField" pInputText placeholder="Felhasználónév" [disabled]="isNameInputDisabled" name="name" />
+        <input id="nameField" pInputText placeholder="Felhasználónév" [disabled]="isNameInputDisabled" name="name" [(ngModel)]="userDetails.name"/>
         <p-inputgroup-addon>
             <p-button [icon]="Nameicon" severity="secondary" variant="text" (click)="toggleNameInput()"/>
         </p-inputgroup-addon>
@@ -11,7 +11,7 @@
 
 
     <p-inputgroup class="mb-3">
-        <input id="emailField" pInputText placeholder="Email" [disabled]="isEmailInputDisabled" name="email"/>
+        <input id="emailField" pInputText placeholder="Email" [disabled]="isEmailInputDisabled" name="email" [(ngModel)]="userDetails.email"/>
         <p-inputgroup-addon>
             <p-button [icon]="Emailicon" severity="secondary" variant="text" (click)="toggleEmailInput()" />
         </p-inputgroup-addon>
@@ -21,7 +21,7 @@
 
 
     <p-button label="Mentés" icon="pi pi-check" severity="secondary" variant="text" (click)="saveChanges()"
-        [disabled]="isEmailInputDisabled || isNameInputDisabled" />
+        [disabled]="isEmailInputDisabled && isNameInputDisabled" />
 
 
     <!-- Password Change -->
@@ -40,7 +40,7 @@
         <input id="ConfirmNewpasswordField" pInputText type="password" />
     </p-floatlabel>
 
-    <p-button label="Mentés" icon="pi pi-check" severity="secondary" variant="text" (click)="saveChanges()"
+    <p-button label="Mentés" icon="pi pi-check" severity="secondary" variant="text" (click)="updatePassword()"
         [disabled]="!isPasswordValid()" />
 
 
