@@ -65,7 +65,6 @@ export class LoginComponent {
       next: (res) => {
         this.auth.login((res as any).token);
         sessionStorage.setItem("id", (res as any).userId);
-
         if (this.keepLoggedIn) {
           this.auth.storeUser((res as any).token);
         }

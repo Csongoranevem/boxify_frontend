@@ -9,7 +9,7 @@ export interface User {
   phone?: string;
   address?: string;
   description? :string;
-  reg: Date;
+  reg?: Date;
   last?: Date;
   status: boolean;
 }
