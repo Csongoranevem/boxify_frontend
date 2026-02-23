@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenubarModule } from 'primeng/menubar';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { ApiService } from '../../../services/api.service';
@@ -19,7 +19,8 @@ export class NavbarComponent implements OnInit {
   constructor(
     private api: ApiService,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) { }
 
   items: MenuItem[] | undefined;
@@ -103,7 +104,17 @@ export class NavbarComponent implements OnInit {
     }
     else {
       this.router.navigateByUrl('login');
-      alert('Kérjük, jelentkezzen be a doboz létrehozásához.');
+      this.messageService.add({ severity: 'warn', summary: 'Figyelmeztetés', detail: 'Kérjük, jelentkezzen be a doboz létrehozásához.', life: 3000 });
+    }
+  }
+
+  createNewItem() {
+    if (this.isLoggedIn) {
+      this.router.navigateByUrl('create_new_item');
+    }
+    else {
+      this.router.navigateByUrl('login');
+      this.messageService.add({ severity: 'warn', summary: 'Figyelmeztetés', detail: 'Kérjük, jelentkezzen be a tárgy létrehozásához.', life: 3000 });
     }
   }
 
