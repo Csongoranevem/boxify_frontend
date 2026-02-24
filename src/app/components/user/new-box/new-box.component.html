@@ -3,8 +3,9 @@
 
     <div class="mb-4 col col-xl-4 col-lg-4 col-md-6 col-sm-12">
         <p-floatLabel>
-            <input pInputText id="code" [(ngModel)]="newBox.code" class="w-full" />
+            <input pInputText id="code" [(ngModel)]="newBox.code" class="w-full" maxLength="15" />
             <label for="code">Kód</label>
+            <small class="p-text-secondary">{{ newBox.code.length }}/15</small>
         </p-floatLabel>
     </div>
 
