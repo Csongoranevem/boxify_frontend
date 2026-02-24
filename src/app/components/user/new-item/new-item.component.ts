@@ -169,7 +169,7 @@ export class NewItemComponent implements OnInit {
         if (items.length != 0) {
           items.forEach(item => {
             let itemWeight: number = item.weightKg;
-            totalWeight += itemWeight;
+            totalWeight += Number(itemWeight);
           });
         }
         console.log('total weight in box:', totalWeight);
