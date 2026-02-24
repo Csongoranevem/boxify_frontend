@@ -63,7 +63,7 @@ export class NewBoxComponent {
       if (this.newBox.heightCm < 0 || this.newBox.lengthCm < 0 || this.newBox.widthCm < 0) {
         throw new Error('Nem adhatsz meg negatív méretet');
       }
-
+      console.log(this.newBox);
       this.api.insert('boxes', this.newBox).subscribe({
         next: (response) => {
           this.messageService.add({ severity: 'success', summary: 'Siker', detail: 'A doboz sikeresen létrejött' });

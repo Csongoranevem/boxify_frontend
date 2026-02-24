@@ -27,6 +27,7 @@ constructor(
   users: User[] = [];
   visible: boolean = false;
 
+
   selectedUser: User = {
     id: '',
     name: '',
@@ -53,4 +54,31 @@ constructor(
     });
   }
 
+  banUser(id:any){
+
+    this.selectUser(id);
+   
+          this.api.update('users',id,{status:!this.selectedUser.status}).subscribe({
+      next:(data)=>{
+        this.loadUsers();
+      },
+        error: (err) => {
+        this.messageService.add({ severity: 'error', summary: 'Hiba', detail: err.message, life: 3000 });
+      }
+    })
+    
+    
+
+  }
+
+
+  selectUser(id:any)
+  {
+    this.api.selectById("users",id).subscribe({
+      next:(data)=>{
+        this.selectedUser=data as User;
+        this.loadUsers();
+      }
+    })
+  }
 }

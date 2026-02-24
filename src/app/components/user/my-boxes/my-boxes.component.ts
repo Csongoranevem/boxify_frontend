@@ -68,7 +68,7 @@ export class MyBoxesComponent implements OnInit {
   }
 
   loadBoxes() {
-    this.api.selectByField('boxes', 'userId', 'eq', this.auth.GetLoggedUser().id).subscribe({
+    this.api.selectByField('boxes', 'userId', 'eq', String(sessionStorage.getItem("id"))).subscribe({
       next: (data) => {
         this.boxes = data as Box[];
       },

@@ -61,6 +61,24 @@ export class LoginComponent {
       password: this.user.password
     }
 
+    if(data.email=="" || data.password=="")
+    {
+      this.message.add({ severity: 'error', summary: 'Hiba', detail: `Nem adtál meg minden adatot!`, life: 3000 });
+      return;
+
+    }
+    this.api.selectByField('users','email','eq',data.email).subscribe({
+      next:(data)=>{
+        this.user=data as User;
+      }
+    })
+
+    if(this.user.status=false)
+    {
+      this.message.add({severity:'error', summary:'Hiba',detail:'Ezt a felhasználót felfüggesztettük!' , life:3000})
+      return;
+    }
+
     this.api.login('users', data).subscribe({
       next: (res) => {
         this.auth.login((res as any).token);

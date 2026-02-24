@@ -6,13 +6,14 @@ import { MyBoxesComponent } from './components/user/my-boxes/my-boxes.component'
 import { LogoutComponent } from './components/user/logout/logout.component';
 import { UpdateProfileComponent } from './components/user/update-profile/update-profile.component';
 import { NewItemComponent } from './components/user/new-item/new-item.component';
+import { UserslistComponent } from './components/admin/userslist/userslist.component';
 
 export const routes: Routes = [
 
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'registration', component: RegistrationComponent },
-
+    {path:'userslist',component:UserslistComponent},
     { path: 'myboxes', component: MyBoxesComponent },
     { path: 'create_new_box', component: NewBoxComponent },
     { path: 'create_new_item', component: NewItemComponent },

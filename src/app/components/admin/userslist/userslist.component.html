@@ -21,9 +21,7 @@
             <td>{{ user.status }}</td>
 
             <td>
-                <p-button label="Szerkesztés" icon="pi pi-pencil" class="changeBtn w-50" severity="info"
-                    ></p-button>
-                <p-button label="Törlés" icon="pi pi-trash" class="deleteBtn w-50" severity="danger"
+                <p-button label="" icon="pi pi-ban" class="deleteBtn w-50" severity="danger" (click)="banUser(user.id)"
                    ></p-button>
             </td>
         </tr>
