@@ -6,6 +6,7 @@ import { MyBoxesComponent } from './components/user/my-boxes/my-boxes.component'
 import { LogoutComponent } from './components/user/logout/logout.component';
 import { UpdateProfileComponent } from './components/user/update-profile/update-profile.component';
 import { NewItemComponent } from './components/user/new-item/new-item.component';
+import { MyItemsComponent } from './components/user/my-items/my-items.component';
 import { UserslistComponent } from './components/admin/userslist/userslist.component';
 
 export const routes: Routes = [
@@ -19,6 +20,7 @@ export const routes: Routes = [
     { path: 'create_new_item', component: NewItemComponent },
     { path: 'logout', component: LogoutComponent},
     {path:'updateprofile',component:UpdateProfileComponent},
+    { path: 'myitems', component: MyItemsComponent },
 
     { path: '**', redirectTo: '/login' }
 ];

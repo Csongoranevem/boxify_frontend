@@ -26,7 +26,7 @@ export class NavbarComponent implements OnInit {
   items: MenuItem[] | undefined;
   isLoggedIn: boolean = false;
   isDark = false;
-  isAdmin :boolean=false;
+  isAdmin: boolean = false;
 
   ngOnInit(): void {
 
@@ -65,6 +65,11 @@ export class NavbarComponent implements OnInit {
           routerLink: '/myboxes'
         },
         {
+          label: 'Tárgyaim',
+          icon: 'pi pi-user-edit',
+          routerLink: '/myitems'
+        },
+        {
           label: 'Statisztikák',
           icon: 'pi pi-chart-pie',
           routerLink: '/statistics'
@@ -89,7 +94,7 @@ export class NavbarComponent implements OnInit {
           icon: 'pi pi-sign-out',
           routerLink: '/logout'
         },
-        
+
       ] : [
         {
           label: 'Bejelentkezés',
@@ -102,7 +107,7 @@ export class NavbarComponent implements OnInit {
           routerLink: '/registration'
         }
       ]
-      
+
     ]
   }
 

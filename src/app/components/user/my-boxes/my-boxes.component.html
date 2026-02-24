@@ -1,4 +1,4 @@
-<h1>Az én dobozaim</h1>
+<h1 class="mx-auto">Az én dobozaim</h1>
 <p-table [value]="boxes" [paginator]="true" [rows]="10" [responsiveLayout]="'scroll'"
     class="col col-xl-4 col-lg-8 col-md-8 col-sm-12">
     <ng-template pTemplate="header">
@@ -33,9 +33,9 @@
             </td>
 
             <td>
-                <p-button label="Szerkesztés" icon="pi pi-pencil" class="changeBtn w-50" severity="info"
+                <p-button label="" icon="pi pi-pencil" rounded="true" class="changeBtn w-50" severity="info"
                     (click)="showDialog(box.id)"></p-button>
-                <p-button label="Törlés" icon="pi pi-trash" class="deleteBtn w-50" severity="danger"
+                <p-button label="" icon="pi pi-trash" rounded="true" class="deleteBtn w-50" severity="danger"
                     (click)="deleteBox(box.id)"></p-button>
             </td>
         </tr>
@@ -45,7 +45,7 @@
 
 
 
-<p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+<p-dialog header="Edit Box" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
     <span class="p-text-secondary block mb-8">Doboz módosítása</span>
     <div class="flex items-center gap-4 mb-4">
         <label for="labelType" class="font-semibold w-24">Típus</label>
@@ -100,9 +100,9 @@
                 <td>{{ item.weightKg }} kg</td>
                 <td>{{ item.description }}</td>
                 <td>
-                    <p-button label="Szerkesztés" icon="pi pi-pencil" class="changeBtn w-50" severity="info"
+                    <p-button label="" icon="pi pi-pencil" rounded="true" class="changeBtn w-50" severity="info"
                         (click)="showEditItemDialog(item.id)"></p-button>
-                    <p-button label="Törlés" icon="pi pi-trash" class="deleteBtn w-50" severity="danger"
+                    <p-button label="" icon="pi pi-trash" rounded="true" class="deleteBtn w-50" severity="danger"
                         (click)="deleteItemFromBox(item.id)"></p-button>
                 </td>
             </tr>

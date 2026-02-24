@@ -1,0 +1,72 @@
+<h1>Az én tételeim</h1>
+<p-table [value]="items" [paginator]="true" [rows]="10" [responsiveLayout]="'scroll'"
+    class="col col-xl-4 col-lg-8 col-md-8 col-sm-12">
+    <ng-template pTemplate="header">
+        <tr>
+
+            <th>ID</th>
+            <th>Név</th>
+            <th>Méret</th>
+            <th>Súly</th>
+            <th>Leírás</th>
+            <th>Műveletek</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.lengthCm }} x {{ item.widthCm }} x {{ item.heightCm }} cm</td>
+            <td>{{ item.weightKg }} kg</td>
+            <td>{{ item.description }}</td>
+            <td>
+                <p-select [options]="boxes" variant="filled" optionLabel="code"
+                    placeholder="Válassz egy dobozt" inputId="boxSelect"
+                    [(ngModel)]="item.selectedBox"
+                    (onChange)="onBoxChange(item, $event.value)" virtualScroll="true" [virtualScrollItemSize]="38" class="md:w-56">
+                </p-select>
+                <p-button label="" icon="pi pi-pencil" rounded="true" class="changeBtn w-50" severity="info"
+                    (click)="showDialog(item.id)"></p-button>
+                <p-button label="" icon="pi pi-trash" rounded="true" class="deleteBtn w-50" severity="danger"
+                    (click)="deleteItem(item.id)"></p-button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+
+
+
+<p-dialog header="Edit Item" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+    <span class="p-text-secondary block mb-8">Doboz módosítása</span>
+    <div class="flex items-center gap-4 mb-4">
+        <label for="labelType" class="font-semibold w-24">Típus</label>
+        <input pInputText id="labelType" class="flex-auto" [(ngModel)]="selectedItem.name" />
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+        <label for="lengthCm" class="font-semibold w-24">Hosszúság (cm)</label>
+        <input pInputText id="lengthCm" class="flex-auto" [(ngModel)]="selectedItem.lengthCm" />
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+        <label for="widthCm" class="font-semibold w-24">Szélesség (cm)</label>
+        <input pInputText id="widthCm" class="flex-auto" [(ngModel)]="selectedItem.widthCm" />
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+        <label for="heightCm" class="font-semibold w-24">Magasság (cm)</label>
+        <input pInputText id="heightCm" class="flex-auto" [(ngModel)]="selectedItem.heightCm" />
+    </div>
+    <div class="flex items-center gap-4 mb-4">
+        <label for="weightKg" class="font-semibold w-24">súly (kg)</label>
+        <input pInputText id="weightKg" class="flex-auto" [(ngModel)]="selectedItem.weightKg" />
+    </div>
+    <div class="mb-3">
+        <label for="location" class="font-semibold w-24">Leírás</label>
+        <textarea pTextarea id="location" class="flex-auto" [(ngModel)]="selectedItem.description" rows="5"
+            style="resize: none" class="h-full w-full"></textarea>
+    </div>
+
+    <div class="flex justify-end gap-2">
+        <p-button label="Mégse" severity="secondary" (click)="hideDialog()" />
+        <p-button label="Mentés" (click)="updateItem(selectedItem.id)" />
+    </div>
+</p-dialog>

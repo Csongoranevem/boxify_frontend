@@ -1,0 +1,31 @@
+::ng-deep .p-datatable-table {
+  padding-bottom: 8rem !important;
+}
+
+
+p-button {
+  margin-right: 0.5rem;
+  padding: 0;
+  border: none;
+}
+
+
+th {
+  text-align: center;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+
+::ng-deep .p-select{
+  margin-right: 2rem !important;
+}
+
+
+
+::ng-deep .p-scroller, .p-virtualScroller{
+  height: 6rem !important;
+}
