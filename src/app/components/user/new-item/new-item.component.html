@@ -4,15 +4,15 @@
 
 
     <div class="mb-4 col col-xl-4 col-lg-4 col-md-6 col-sm-12">
-        <p-floatLabel>
-            <label for="boxSelect" class="mx-auto">A kód beolvasásával láthatod a kódját!</label>
-            <p-select [options]="boxes" [(ngModel)]="selectedBox" variant="filled" [virtualScroll]="true" [virtualScrollItemSize]="38" optionLabel="code" placeholder="Válassz egy dobozt" inputId="boxSelect" >
+        <p-floatLabel variant="in">
+            <p-select [options]="boxes" [(ngModel)]="selectedBox" variant="filled" [virtualScroll]="true" [virtualScrollItemSize]="38" optionLabel="code" inputId="over_label" class="w-full" >
                 <ng-template pTemplate="item" let-box>
                     <div class="flex align-items-center">
                         <span class="mr-2">{{ box.code }}</span>
                     </div>
                 </ng-template>
             </p-select>
+            <label for="over_label" class="mx-auto">A QR kód beolvasásával láthatod a doboz nevét!</label>
         </p-floatLabel>
     </div>
 
