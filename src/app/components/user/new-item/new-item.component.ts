@@ -15,12 +15,11 @@ import { Item } from '../../../interfaces/Item';
 import { Box } from '../../../interfaces/box';
 import { SelectModule } from 'primeng/select';
 import { QRCodeModule } from 'angularx-qrcode';
-import { firstValueFrom } from 'rxjs';
-
+import { ProgressBarModule } from 'primeng/progressbar';
 @Component({
   selector: 'app-new-item',
   standalone: true,
-  imports: [InputTextModule, InputNumberModule, FormsModule, FloatLabelModule, ButtonModule, CommonModule, MessageModule, TextareaModule, SelectModule, QRCodeModule],
+  imports: [InputTextModule, InputNumberModule, FormsModule, FloatLabelModule, ButtonModule, CommonModule, MessageModule, TextareaModule, SelectModule, QRCodeModule, ProgressBarModule],
   templateUrl: './new-item.component.html',
   styleUrl: './new-item.component.scss'
 
@@ -38,6 +37,7 @@ export class NewItemComponent implements OnInit {
   boxes: Box[] = [];
   boxCodes: string[] = [];
   selectedBox: Box | null = null;
+  itemsWeight: number = 0;
 
   newItem: Item = {
     id: '',
@@ -84,11 +84,8 @@ export class NewItemComponent implements OnInit {
       if (this.newItem.weightKg < 0 || this.newItem.weightKg > boxWeight) {
         throw new Error('A termék súlya érvénytelen');
       }
-      if (!this.BoxVolumeValidate()) {
-        throw new Error('A doboz túl kicsi a termék számára');
-      }
       if (!this.BoxWeightValidate()) {
-        throw new Error('A termék túl nehéz a doboz számára');
+        throw new Error('A doboz túl kicsi a termék számára');
       }
 
       this.api.insert('items', this.newItem).subscribe({
@@ -118,7 +115,7 @@ export class NewItemComponent implements OnInit {
       this.messageService.add({ severity: 'error', summary: 'Hiba', detail: error.message });
     }
   }
-
+  
   loadBoxes() {
     this.api.selectByField('boxes', 'userId', 'eq', this.auth.GetLoggedUser().id).subscribe({
       next: (data) => {
@@ -131,38 +128,16 @@ export class NewItemComponent implements OnInit {
     });
   }
 
-  BoxVolumeValidate(): boolean {
-    this.api.selectByField('items', 'boxId', 'eq', this.newItem.boxId).subscribe({
-      next: (data) => {
-        let items = data as Item[];
-        let totalVolume: number = 0;
-        if (items.length != 0) {
-          items.forEach(item => {
-            let itemVolume: number = item.lengthCm * item.widthCm * item.heightCm;
-            totalVolume += itemVolume;
-          });
-        }
-
-        let boxVolume: number = (this.selectedBox?.lengthCm || 0) * (this.selectedBox?.widthCm || 0) * (this.selectedBox?.heightCm || 0);
-        if (totalVolume > boxVolume) {
-          return false;
-        }
-        if ((this.newItem.lengthCm * this.newItem.widthCm * this.newItem.heightCm + totalVolume) > boxVolume) {
-          return false;
-        }
-        return true;
-      },
-      error: (err) => {
-        return false;
-      }
-
-    });
+  BoxWeightValidate(): boolean {
+    let boxWeight = this.selectedBox?.maxWeightKg || 0;
+    if (this.newItem.weightKg < 0 || this.newItem.weightKg > boxWeight || this.itemsWeight + this.newItem.weightKg > boxWeight) {
+      return false;
+    }
     return true;
   }
 
-
-  BoxWeightValidate(): boolean {
-    this.api.selectByField('items', 'boxId', 'eq', this.newItem.boxId).subscribe({
+  GetBoxItemsWeight() {
+    this.api.selectByField('items', 'boxId', 'eq', this.selectedBox?.id!).subscribe({
       next: (data) => {
         let items = data as Item[];
         let totalWeight: number = 0;
@@ -172,22 +147,16 @@ export class NewItemComponent implements OnInit {
             totalWeight += Number(itemWeight);
           });
         }
-        console.log('total weight in box:', totalWeight);
-        let boxWeight: number = this.selectedBox?.maxWeightKg || 0;
-        if (totalWeight > boxWeight) {
-          return false;
-        }
-        if ((this.newItem.weightKg + totalWeight) > boxWeight) {
-          return false;
-        }
-
-        return true;
+        this.itemsWeight = totalWeight;
+        return;
       },
       error: (err) => {
-        return false;
+        return ;
       }
 
     });
-    return true;
+    return ;
   }
+
+
 }

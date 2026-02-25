@@ -47,25 +47,33 @@
 
 <p-dialog header="Edit Box" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
     <span class="p-text-secondary block mb-8">Doboz módosítása</span>
-    <div class="flex items-center gap-4 mb-4">
-        <label for="labelType" class="font-semibold w-24">Típus</label>
-        <input pInputText id="labelType" class="flex-auto" [(ngModel)]="selectedBox.labelType" />
-    </div>
-    <div class="flex items-center gap-4 mb-4">
-        <label for="lengthCm" class="font-semibold w-24">Hosszúság (cm)</label>
-        <input pInputText id="lengthCm" class="flex-auto" [(ngModel)]="selectedBox.lengthCm" />
-    </div>
-    <div class="flex items-center gap-4 mb-4">
-        <label for="widthCm" class="font-semibold w-24">Szélesség (cm)</label>
-        <input pInputText id="widthCm" class="flex-auto" [(ngModel)]="selectedBox.widthCm" />
-    </div>
-    <div class="flex items-center gap-4 mb-4">
-        <label for="heightCm" class="font-semibold w-24">Magasság (cm)</label>
-        <input pInputText id="heightCm" class="flex-auto" [(ngModel)]="selectedBox.heightCm" />
-    </div>
-    <div class="flex items-center gap-4 mb-4">
-        <label for="maxWeightKg" class="font-semibold w-24">Max. súly (kg)</label>
-        <input pInputText id="maxWeightKg" class="flex-auto" [(ngModel)]="selectedBox.maxWeightKg" />
+    <div class="size">
+        <div class="mb-4 col col-xl-6 col-lg-6 col-md-6 col-sm-12">
+            <p-floatLabel>
+                <p-inputnumber inputId="integeronly" [(ngModel)]="selectedBox.lengthCm" [showButtons]="true" [min]="0" />
+                <label for="lengthCm">Hossz (cm)</label>
+            </p-floatLabel>
+        </div>
+
+        <div class="mb-4 col col-xl-6 col-lg-6 col-md-6 col-sm-12">
+            <p-floatLabel>
+                <p-inputnumber inputId="integeronly" [(ngModel)]="selectedBox.widthCm" [showButtons]="true" [min]="0" />
+                <label for="widthCm">Szélesség (cm)</label>
+            </p-floatLabel>
+        </div>
+
+        <div class="mb-4 col col-xl-6 col-lg-6 col-md-6 col-sm-12">
+            <p-floatLabel>
+                <p-inputnumber inputId="integeronly" [(ngModel)]="selectedBox.heightCm" [showButtons]="true" [min]="0" />
+                <label for="heightCm">Magasság (cm)</label>
+            </p-floatLabel>
+        </div>
+        <div class="mb-4 col col-xl-6 col-lg-6 col-md-6 col-sm-12">
+            <p-floatLabel>
+                <p-inputnumber inputId="integeronly" [(ngModel)]="selectedBox.maxWeightKg" [showButtons]="true" [min]="itemsWeight" />
+                <label for="maxWeightKg">Max. súly (kg)</label>
+            </p-floatLabel>
+        </div>
     </div>
     <div class="mb-3">
         <label for="location" class="font-semibold w-24">Leírás</label>
@@ -80,7 +88,7 @@
 </p-dialog>
 
 
-<p-dialog header="Items" [modal]="true" [(visible)]="ItemsVisible" [style]="{ width: '120rem' }">
+<p-dialog header="Items" [modal]="true" [(visible)]="ItemsVisible" [style]="{ width: '100rem' }">
     <p-table [value]="items" [paginator]="true" [rows]="10" [responsiveLayout]="'scroll'">
         <ng-template pTemplate="header">
             <tr>
@@ -94,7 +102,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-item>
             <tr>
-                <td>{{ item.id }}</td>
+                <td>{{ item.id ? item.id : 'Nincs adat' }}</td>
                 <td>{{ item.name }}</td>
                 <td>{{ item.lengthCm }} x {{ item.widthCm }} x {{ item.heightCm }} cm</td>
                 <td>{{ item.weightKg }} kg</td>

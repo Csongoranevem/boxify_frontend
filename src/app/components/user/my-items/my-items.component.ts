@@ -30,6 +30,7 @@ export class MyItemsComponent implements OnInit {
   ) { }
 
   items: Item[] = [];
+  itemsWeight: number = 0;
   boxes: Box[] = [];
   visible: boolean = false;
   selectedItem: Item = {
@@ -44,6 +45,21 @@ export class MyItemsComponent implements OnInit {
     heightCm: 0,
     weightKg: 0,
     imagePath: ''
+  };
+  selectedBox: Box = {
+    id: '',
+    userId: '',
+    code: '',
+    labelType: 'QR',
+    lengthCm: 0,
+    widthCm: 0,
+    heightCm: 0,
+    maxWeightKg: 0,
+    location: '',
+    note: '',
+    status: 'ACTIVE',
+    createdAt: new Date(),
+    updatedAt: new Date()
   };
 
   ngOnInit() {
@@ -61,7 +77,6 @@ export class MyItemsComponent implements OnInit {
       }
     });
   }
-
 
   showDialog(id: string) {
     this.selectedItem = this.items.find(item => item.id === id) || this.selectedItem;
@@ -85,19 +100,24 @@ export class MyItemsComponent implements OnInit {
     this.visible = false;
   }
 
-
   getAllItems() {
     this.api.selectByField('items', 'userId', 'eq', this.auth.GetLoggedUser().id).subscribe({
       next: (data) => {
         this.items = data as Item[];
+
+        if (this.items.length > 0) {
+          this.items.forEach(item => {
+            if (item.boxId) {
+              item.selectedBox = this.boxes.find(box => box.id === item.boxId);
+            }
+          });
+        }
       },
       error: (err) => {
         this.messageService.add({ severity: 'error', summary: 'Hiba', detail: err.message, life: 3000 });
       }
     });
   }
-
-
 
   hideEditItemDialog() {
     this.selectedItem = {
@@ -126,6 +146,28 @@ export class MyItemsComponent implements OnInit {
     });
   }
 
+  GetBoxItemsWeight(boxId:string) {
+    this.api.selectByField('items', 'boxId', 'eq', boxId).subscribe({
+      next: (data) => {
+        let items = data as Item[];
+        let totalWeight: number = 0;
+        if (items.length != 0) {
+          items.forEach(item => {
+            let itemWeight: number = item.weightKg;
+            totalWeight += Number(itemWeight);
+          });
+          this.itemsWeight = totalWeight;
+          console.log(this.itemsWeight);
+        }
+        return totalWeight;
+      },
+      error: (err) => {
+        return 0;
+      }
+
+    });
+    return 0;
+  }
 
   updateItem(itemId: string) {
     if (!this.selectedItem) return;
@@ -143,6 +185,13 @@ export class MyItemsComponent implements OnInit {
 
   onBoxChange(item: any, selectedBox: any): void {
     if (!selectedBox) return;
+    if (item.boxId === selectedBox.id) return;
+    this.GetBoxItemsWeight(selectedBox.id);
+    console.log('tárgyak sulya' + this.itemsWeight);
+    if (this.itemsWeight + item.weightKg > selectedBox.maxWeightKg) {
+      this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'A tétel súlya meghaladja a maximális súlyt' });
+      return;
+    }
     this.api.update('items', item.id, { ...item, boxId: selectedBox.id }).subscribe({
       next: () => {
         item.boxId = selectedBox.id;
