@@ -9,6 +9,7 @@ import { NewItemComponent } from './components/user/new-item/new-item.component'
 import { MyItemsComponent } from './components/user/my-items/my-items.component';
 import { UserslistComponent } from './components/admin/userslist/userslist.component';
 import { roleGuardResolver } from './guards/role.guard.resolver';
+import { HomeComponent } from './components/system/home/home.component';
 
 export const routes: Routes = [
 
@@ -22,6 +23,7 @@ export const routes: Routes = [
     { path: 'logout', component: LogoutComponent },
     { path: 'updateprofile', component: UpdateProfileComponent },
     { path: 'myitems', component: MyItemsComponent },
+    {path: 'home',component:HomeComponent},
 
     { path: '**', redirectTo: '/login' }
 ];
