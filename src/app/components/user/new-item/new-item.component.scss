@@ -3,3 +3,13 @@
   flex-direction: row;
   justify-content: space-between;
 }
+
+
+::ng-deep .p-progressbar {
+  height: 2rem !important;
+  margin-top: 3rem !important;
+}
+
+::ng-deep .p-progressbar-value {
+  background-color: #3391d8 !important;
+}

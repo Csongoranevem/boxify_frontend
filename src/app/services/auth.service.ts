@@ -61,7 +61,10 @@ export class AuthService {
     return user.role === 'admin';
   }
 
-
+  hasRole(role: string): boolean {
+    const user: any = this.GetLoggedUser();
+    return user.role === role;
+  }
 
   GetLoggedUser(){
     const token = localStorage.getItem(this.tokenName);

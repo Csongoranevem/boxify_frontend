@@ -5,7 +5,8 @@
 
     <div class="mb-4 col col-xl-4 col-lg-4 col-md-6 col-sm-12">
         <p-floatLabel variant="in">
-            <p-select [options]="boxes" [(ngModel)]="selectedBox" variant="filled" [virtualScroll]="true" [virtualScrollItemSize]="38" optionLabel="code" inputId="over_label" class="w-full" >
+            <p-select [options]="boxes" [(ngModel)]="selectedBox" variant="filled" [virtualScroll]="true"
+                [virtualScrollItemSize]="38" optionLabel="code" inputId="over_label" class="w-full" (onChange)="GetBoxItemsWeight()">
                 <ng-template pTemplate="item" let-box>
                     <div class="flex align-items-center">
                         <span class="mr-2">{{ box.code }}</span>
@@ -64,3 +65,11 @@
 
 
     <p-button label="Mentés" icon="pi pi-plus" (click)="createItem()" class="w-full" />
+
+
+
+    <p-progressbar [value]="itemsWeight / (selectedBox?.maxWeightKg || 1) * 100">
+        <ng-template pTemplate="content" let-value>
+            <span>{{itemsWeight}}/{{selectedBox?.maxWeightKg || 1}}</span>
+        </ng-template>
+    </p-progressbar>

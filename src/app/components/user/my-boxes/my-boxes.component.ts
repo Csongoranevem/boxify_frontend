@@ -13,10 +13,12 @@ import { TextareaModule } from 'primeng/textarea';
 import { AuthService } from '../../../services/auth.service';
 import { Item } from '../../../interfaces/Item';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { FloatLabelModule } from 'primeng/floatlabel';
 @Component({
   selector: 'app-my-boxes',
   standalone: true,
-  imports: [TableModule, ButtonModule, DatePipe, QRCodeModule, FormsModule, DialogModule, InputText, TextareaModule, AutoCompleteModule],
+  imports: [TableModule, ButtonModule, DatePipe, QRCodeModule, FormsModule, DialogModule, InputText, TextareaModule, AutoCompleteModule, InputNumberModule, FloatLabelModule],
   templateUrl: './my-boxes.component.html',
   styleUrl: './my-boxes.component.scss'
 })
@@ -28,6 +30,7 @@ export class MyBoxesComponent implements OnInit {
     private auth: AuthService
   ) { }
 
+  itemsWeight: number = 0;
   items: Item[] = [];
   boxes: Box[] = [];
   visible: boolean = false;
@@ -80,6 +83,10 @@ export class MyBoxesComponent implements OnInit {
 
   updateBox(id: string) {
     if (!this.selectedBox) return;
+    if (this.itemsWeight > this.selectedBox.maxWeightKg) {
+      this.messageService.add({ severity: 'error', summary: 'Hiba', detail: 'A doboz súlya nem éri el a tételek súlyát' });
+      return;
+    }
 
     this.api.update('boxes', id, this.selectedBox).subscribe({
       next: () => {
@@ -95,6 +102,7 @@ export class MyBoxesComponent implements OnInit {
 
   showDialog(id: string) {
     this.selectedBox = this.boxes.find(box => box.id === id) || this.selectedBox;
+    this.GetBoxItemsWeight();
     this.visible = true;
   }
 
@@ -152,7 +160,7 @@ export class MyBoxesComponent implements OnInit {
   }
 
   showEditItemDialog(itemId: string) {
-    if (!itemId) this.selectedItem = { name: 'nem található tárgy!'};
+    if (!itemId) this.selectedItem = { name: 'nem található tárgy!' };
     this.selectedItem = this.items.find(item => item.id === itemId) || this.selectedItem;
     this.showEditItemDialogVisible = true;
   }
@@ -199,5 +207,28 @@ export class MyBoxesComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Hiba', detail: err.message });
       }
     });
+  }
+
+  GetBoxItemsWeight() {
+    this.api.selectByField('items', 'boxId', 'eq', this.selectedBox?.id!).subscribe({
+      next: (data) => {
+        let items = data as Item[];
+        let totalWeight: number = 0;
+        if (items.length != 0) {
+          items.forEach(item => {
+            let itemWeight: number = item.weightKg;
+            totalWeight += Number(itemWeight);
+          });
+          this.itemsWeight = totalWeight;
+          console.log(this.itemsWeight);
+        }
+        return totalWeight;
+      },
+      error: (err) => {
+        return 0;
+      }
+
+    });
+    return 0;
   }
 }
