@@ -9,9 +9,54 @@
     box-shadow: 6px 6px 10px black;
     margin: 0 auto;
     margin-top: 30px;
+    padding: 20px;
+    margin-bottom: 20px;
+
 }
 
 #bgimg{
-    width: 60%;
+    width: 35%;
 
+}
+
+
+
+#oChartData{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.flex{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.rightD{
+    margin-top: 30px !important;
+    justify-self: start;
+    margin-right: 5%;
+
+}
+
+.leftD{
+    margin-top: 30px !important;
+    justify-self: end;
+    margin-left: 5%;
+}
+
+h2{
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: lighter;
+    text-align: center;
+}
+p-fieldset{
+    margin: 10px;
+}
+
+
+.regcontent{
+    width: 30vw;
 }
