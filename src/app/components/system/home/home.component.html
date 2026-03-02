@@ -1,74 +1,42 @@
 <div class="container">
-    <img src="homebg.png" alt="kep" id="bgimg">
+        <div class="hero">
+            <img src="homebg.png" alt="kep" id="bgimg">
+            <div class="hero-text">
+                <h1>Gyors csomagkezelés, valós idejű csomagkövetés</h1>
+                <p class="lead">Kezeld a csomagjaidat egyszerűen: létrehozás, követés és megosztás — minden egy helyen.</p>
+                <div class="hero-cta">
+                    <button pButton type="button" label="Regisztráció" class="p-button-success" (click)="navigateTo('/registration')"></button>
+                    <button pButton type="button" label="Bejelentkezés" class="p-button-secondary" (click)="navigateTo('/login')"></button>
+                    <button pButton type="button" label="Saját dobozok" class="p-button-help" (click)="navigateTo('/myboxes')"></button>
+                </div>
+            </div>
+        </div>
 
-    <h2>Csomagkezelés, csomaginfo követés 0-24 órában</h2>
-   
-    <div class="card flex justify-center">
-    <p-stepper [value]="1" class="basis-[50rem]">
-        <p-step-list>
-            <p-step [value]="1">Header I</p-step>
-            <p-step [value]="2">Header II</p-step>
-            <p-step [value]="3">Header II</p-step>
-        </p-step-list>
-        <p-step-panels>
-            <p-step-panel [value]="1">
-                <ng-template #content let-activateCallback="activateCallback">
-                    <div class="flex flex-col h-48">
-                        <div
-                            class="regcontent  border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
-                        >
-                            Content I
-                        </div>
-                        <div class="flex pt-6 justify-end">
-                            <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" />
-                        </div>
-                    </div>
-                </ng-template>
-            </p-step-panel>
-
-            <p-step-panel [value]="2">
-                <ng-template #content let-activateCallback="activateCallback">
-                    <div class="flex flex-col h-48">
-                        <div
-                            class=" regcontent border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
-                        >
-                            Content II
-                        </div>
-                    </div>
-                    <div class="flex pt-6 justify-between">
-                        <p-button label="Back" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(1)" />
-                        <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(3)" />
-                    </div>
-                </ng-template>
-            </p-step-panel>
-
-            <p-step-panel [value]="3">
-                <ng-template #content let-activateCallback="activateCallback">
-                    <div class="flex flex-col h-48">
-                        <div
-                            class="regcontent border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
-                        >
-                            Content III
-                        </div>
-                    </div>
-                    <div class="flex pt-6 justify-start">
-                        <p-button label="Back" icon="pi pi-arrow-left" iconPos="right" (onClick)="activateCallback(2)" />
-                    </div>
-                </ng-template>
-            </p-step-panel>
-        </p-step-panels>
-    </p-stepper>
-</div>
-<div class="oCharts">
+  
+    <div class="oCharts">
+        <div class="stats-row">
+            <div class="stat card pulse">
+                <div class="stat-value">{{ boxesCount }}</div>
+                <div class="stat-label">Dobozok</div>
+            </div>
+            <div class="stat card pulse delay">
+                <div class="stat-value">{{ itemsCount }}</div>
+                <div class="stat-label">Tárgyak</div>
+            </div>
+            <div class="stat card pulse delay-more">
+                <div class="stat-value">{{ usersCount }}</div>
+                <div class="stat-label">Felhasználók</div>
+            </div>
+        </div>
 <div class="flex flex-row justify-content-center">
 <div class="rightD">
     <p-organization-chart [value]="data" [collapsible]="true">
     <ng-template let-node pTemplate="person">
-        <div class="flex flex-col">
-            <div class="flex flex-col items-center" style="width: 10vw;">
-                <img [src]="node.data.image" class="mb-4 w-6 h-6" />
-                <span class="font-bold mb-2">{{ node.data.name }}</span>
-                <span>{{ node.data.title }}</span>
+        <div class="person-card">
+            <img [src]="node.data.image" class="person-img" />
+            <div class="person-info">
+                <div class="name">{{ node.data.name }}</div>
+                <div class="title">{{ node.data.title }}</div>
             </div>
         </div>
     </ng-template>
@@ -78,11 +46,11 @@
 <div class="leftD">
     <p-organization-chart [value]="data2" [collapsible]="true">
     <ng-template let-node pTemplate="person" >
-        <div class="flex flex-col">
-            <div class="flex flex-col items-center" style="width: 10vw;">
-                <img [src]="node.data.image" class="mb-4 w-6 h-6" />
-                <span class="font-bold mb-2">{{ node.data.name }}</span>
-                <span>{{ node.data.title }}</span>
+        <div class="person-card">
+            <img [src]="node.data.image" class="person-img" />
+            <div class="person-info">
+                <div class="name">{{ node.data.name }}</div>
+                <div class="title">{{ node.data.title }}</div>
             </div>
         </div>
     </ng-template>
